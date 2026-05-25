@@ -209,15 +209,18 @@ datums2 = new Date(tekošaisLaiksMilisekundes)
 console.log(datums1)
 console.log(datums3)
 
+function nullePriekšā(skaitlis){
+    return String(skaitlis).padStart(2, '0') 
+}
 // Laika un datuma izvade
 function mūsuLaiks(){
     let datums1 = new Date()
         let laiks = {
-            stundas:datums1.getHours()<10?"0"+datums1.getHours():datums1.getHours(),
-            minutes:datums1.getMinutes(),
-            sekundes:datums1.getSeconds(),
-            datums:datums1.getDate(),
-            menesis:datums1.getMonth()+1,
+            stundas:nullePriekšā(datums1.getHours()),
+            minutes:nullePriekšā(datums1.getMinutes()),
+            sekundes:nullePriekšā(datums1.getSeconds()),
+            datums:nullePriekšā(datums1.getDate()),
+            menesis:nullePriekšā(datums1.getMonth()+1),
             gads:datums1.getFullYear(),
         }
     document.body.innerHTML = `

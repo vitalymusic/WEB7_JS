@@ -32,8 +32,8 @@ do{
     if(l==8) break
     document.body.innerHTML+=`Skaitlis: ${l}<br>`
 }while(l <= 10)
-
-let vecums = prompt("Cik jums ir gadu?")    
+let vecums="";
+// vecums = prompt("Cik jums ir gadu?")    
 // if(nosacījums){
     // seko darbība
 // }else{
@@ -48,7 +48,7 @@ if(vecums >=21){
 else if(vecums > 16 && vecums< 21){
         document.body.innerHTML+=`Laipni lūdzam`
 }else{
-    alert("Pieeja ir aizliegta")
+    // alert("Pieeja ir aizliegta")
 }   
 
 let vards = "Juris"
@@ -83,8 +83,8 @@ let saskaitišana = (sk1,sk2)=>{
 let paziņojums = teksts=>teksts.toUpperCase()
 
 document.body.onload = ()=>{
-    alert(saskaitisana(10,34))
-    alert(paziņojums("labrīt"))
+    // alert(saskaitisana(10,34))
+    // alert(paziņojums("labrīt"))
 }
 
 let dzivoklis1 = {
@@ -187,9 +187,50 @@ krājumi.forEach(function(elements){
     }
 })
 
-let result = krājumi.filter(function(elements){
+result = krājumi.filter(function(elements){
     if(elements.daudzums==0){
         return elements
     }
 })
+
+
+// Datumi JS
+
+// lai izveidotu datuma objektu 
+let datums1 = new Date()
+
+tekošaisLaiksMilisekundes = Date.now()
+laiksPēcDesmitStundām = tekošaisLaiksMilisekundes+(1000*3600*10)
+datums3 = new Date(laiksPēcDesmitStundām)
+datums2 = new Date(tekošaisLaiksMilisekundes)
+// atgriež milisekundes, kas pagāja no 1970.01.01
+
+
+console.log(datums1)
+console.log(datums3)
+
+// Laika un datuma izvade
+function mūsuLaiks(){
+    let datums1 = new Date()
+        let laiks = {
+            stundas:datums1.getHours()<10?"0"+datums1.getHours():datums1.getHours(),
+            minutes:datums1.getMinutes(),
+            sekundes:datums1.getSeconds(),
+            datums:datums1.getDate(),
+            menesis:datums1.getMonth()+1,
+            gads:datums1.getFullYear(),
+        }
+    document.body.innerHTML = `
+        <h1>Pašlaik ir: ${laiks.stundas}:${laiks.minutes}:${laiks.sekundes}</h1>
+        <h2>Šodien ir: ${laiks.datums}.${laiks.menesis}.${laiks.gads} </h2>
+    `    
+}
+mūsuLaiks();
+
+setInterval(()=>{
+    mūsuLaiks()
+},1000)
+
+
+
 

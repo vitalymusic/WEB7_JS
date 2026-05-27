@@ -40,10 +40,111 @@ document.addEventListener("DOMContentLoaded",function(){
     console.log("Attēla adrese ir: "+imgEl.getAttribute('src'))
     console.log("Attēla adrese ir: "+imgEl.src)
 
+    // Elementu stila maiņa
+    heading1.style.fontSize = "5rem"
+    heading1.style.textAlign = "center"
+    heading1.style.display="none"
+
+    // Elementu CSS klases maiņa
+    heading1.classList.add('accent')
+    containerDiv.classList.add('accent')
+    containerDiv.classList.remove('accent')
+    containerDiv.classList.toggle('accent')
+    
+    
+     function openWindow(){
+            window.open("https://ss.com","","toolbar=yes, location=yes, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=800")
+
+     }
+
+    
+    // notikumi
 
 
 
 
+    button.onclick = function(e){
+        // Caur atribūtu
+        text = textInput.value
+        heading1.innerText = text
+       
+        // sessionStorage.setItem("openedWindow",true)
+        sessionStorage.setItem("user","Vitālijs")
+       
+
+        if(sessionStorage.getItem("openedWindow")=="true"){
+            console.log("aizvērt logu")
+            // sessionStorage.setItem("openedWindow",false)
+        }else{
+             sessionStorage.setItem("openedWindow",true)
+             openWindow()
+        }
+
+        localStorage.setItem()
+        localStorage.getItem()
+        
+    }
+
+    textInput.oninput = ()=>{
+        heading1.innerText = textInput.value
+    }
+
+    button.addEventListener("mouseover",function(e){
+       this.style.background = "blue"
+    })
+    button.addEventListener("mouseleave",function(e){
+       this.style.background = "yellow"
+    })
+
+
+    document.body.addEventListener("keydown",function(e){
+        console.log(e)
+
+        if(e.code == 'Space'){
+            changeBackround()
+        }
+    })
+
+     function changeBackround(){
+            background = {
+                red:Math.trunc(Math.random()*255),
+                green:Math.trunc(Math.random()*255),
+                blue:Math.trunc(Math.random()*255),
+            }
+            // console.log(background)
+            document.body.style.transition = "all 0.5s easeIn"     
+            document.body.style.background = `
+                rgb(${background.red},
+                    ${background.green},
+                    ${background.blue})`
+               
+
+     }
+
+
+     setInterval(changeBackround,1000)
+
+    
+     
+
+
+
+
+
+
+
+
+   heading1.innerHTML += navigator.language;
+
+//    ļauj noteikt pārlūkprogrammas parametrus
+
+
+     window.addEventListener("scroll",()=>{
+        console.log("lapa noritināta par "+ window.scrollY)
+        if(window.scrollY>100){
+              console.log("noritintāta")
+        }
+     })
 
 
 })

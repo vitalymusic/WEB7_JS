@@ -41,44 +41,54 @@
         }
         
 
+       
+
         form.onsubmit = function(e){
+
+             let formValidate = [
+                {
+                    formElement:form[0],
+                    match: /.{5,}/,
+                    error:"Ievadiet vārdu"
+                },
+                {
+                    formElement:form[1],
+                    match: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/i,
+                    error:"Ievadiet pareizu e-pastu"
+                },
+                {
+                    formElement:form[3],
+                    match: /^(\d{6})-[012]\d{4}$/,
+                    error:"Pareizu personas kodu"
+                },
+                {
+                    formElement:form[4],
+                    match: /^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/,
+                    error:"Parolei jāsastāv vismaz no 6 simboliem"
+                }
+            
+        ]
+
+
+
+
             e.preventDefault()
             notīrītKļūdas()
-            if(form[0].value.length<5){
-                ievietotKļūdu(form[0],"Ievadiet vārdu")
-            }else{
-                 izņemtKļūdu(form[0])
-            }   
+           
 
-             if(!form[1].value.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/i)){
-                ievietotKļūdu(form[1],"Ievadiet pareizu e-pastu")
-               
+            for (item of formValidate){
+                if(!item.formElement.value.match(item.match)){
+                     ievietotKļūdu(item.formElement,item.error)  
+                }else{
+                     izņemtKļūdu(item.formElement)
+                }
 
-            }else{
-                 izņemtKļūdu(form[1])
-            }  
 
-            //  if(!form[2].value.match(/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}(?:2131|1800|35\d{3})\d{11})$/gm)){
-            //     ievietotKļūdu(form[2],"Ievadiet pareizu kredītkartes numuru")
-            //     errorsInForm=true
 
-            // }else{
-            //      errorsInForm=false
-            //      izņemtKļūdu(form[2])
-            // }  
-            // varētu būt: /^(\d{6})-[012]\d{4}$/
-             if(!form[3].value.match(/^(\d{6})-[012]\d{4}$/)){
-                ievietotKļūdu(form[3],"Pareizu personas kodu")
+            }
 
-            }else{
-                 izņemtKļūdu(form[3])
-            }  
-             if(!form[4].value.match(/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/)){
-                ievietotKļūdu(form[4],"Parolei jāsastāv vismaz no 6 simboliem")
 
-            }else{
-                 izņemtKļūdu(form[4])
-            }  
+
 
             if(form[5].value !== form[4].value || form[5].value.length<6){
                 ievietotKļūdu(form[5],"Paroles nesakrīt")   

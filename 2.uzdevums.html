@@ -34,9 +34,45 @@
 
     <script>
         let input = document.querySelector('#task-input')
-        let addBtn = document.querySelector('#addBtn')
+        let addBtn = document.querySelector('#add-btn')
         let todoColumn = document.querySelector('#todo-column')
         let doneColumn = document.querySelector('#done-column')
+
+        function attention(e){
+            console.log(e)
+            el = e.target
+            el.parentElement.classList.toggle('urgent')
+           
+        }
+        function dublicate(e){
+             el = e.target
+             let newDiv = el.parentElement.cloneNode(true)
+             todoColumn.append(newDiv)
+             PievienotNotikumus1()
+        }
+        function ready(e){
+             el = e.target
+              let newDiv = el.parentElement.cloneNode(true)
+              doneColumn.append(newDiv)
+               PievienotNotikumus1()
+               el.parentElement.remove()
+
+               for(btn of newDiv.querySelectorAll('button')){
+                    btn.remove()
+               }
+               delBtn = document.createElement('button')
+               delBtn.textContent = "Dzēst"
+               delBtn.onclick = deleteTask
+               newDiv.append(delBtn)
+        }   
+
+
+        function deleteTask(e){
+                el = e.target
+                el.parentElement.remove()
+        }
+
+
 
         addBtn.addEventListener("click",function(){
             let div = document.createElement('div');
@@ -44,15 +80,16 @@
             let span = document.createElement('span');
             span.textContent = input.value
             let attentionBtn = document.createElement('button')
+            attentionBtn.className = "attention"
             attentionBtn.textContent = "Svarīgi"
-            attentionBtn.onclick = attention
+            
             let dublicateBtn = document.createElement('button')
             dublicateBtn.textContent = "Dublēt"
-            attentionBtn.onclick = dublicate
+            dublicateBtn.className = "dublicate"
 
             let readyBtn = document.createElement('button')
             readyBtn.textContent = "Gatavs"
-            attentionBtn.onclick = ready
+            readyBtn.className = "ready"
             div.append(span,attentionBtn,dublicateBtn,readyBtn)
 
             todoColumn.append(div)
@@ -61,7 +98,24 @@
             
 
 
+
+            PievienotNotikumus1()
+
         })
+
+        function PievienotNotikumus1(){
+
+            for(btn of document.querySelectorAll('.attention')){
+                btn.onclick = attention
+            }
+            for(btn of document.querySelectorAll('.dublicate')){
+                btn.onclick = dublicate
+            }
+            for(btn of document.querySelectorAll('.ready')){
+                btn.onclick = ready
+            }
+
+        }
 
 
     </script>

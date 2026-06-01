@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fromu apstrāde ar JS</title>
+</head>
+<body>
+    <form action="" novalidate>
+        <label for=""></label>   
+        <input type="text" name="name" id="name">
+        <input type="email" name="email" id="email">
+        <input type="text" name="credit_card" id="credit_card">
+        <input type="text" name="per_code" id="per_code">
+        <input type="password" name="password" id="">
+        <input type="password" name="password_repeat" id="">
+        <button type="submit">Nosūtīt</button>
+    </form>
+
+    <script>
+        let form = document.querySelector('form')
+       
+        let errorsInForm = false
+
+        function ievietotKļūdu(elements,teksts){
+            elements.insertAdjacentHTML("afterend",`<span class="error">${teksts}</span>`)
+            elements.classList.add('error')
+        }
+        function izņemtKļūdu(elements){
+            elements.classList.remove('error')
+        }
+
+        function notīrītKļūdas(){
+            for (el of form.querySelectorAll('span.error')){
+                el.remove()
+            }
+        }
+        
+
+        form.onsubmit = function(e){
+            e.preventDefault()
+            notīrītKļūdas()
+            if(form[0].value.length<5){
+                ievietotKļūdu(form[0],"Ievadiet vārdu")
+                errorsInForm=true
+
+            }else{
+                 errorsInForm=false
+                 izņemtKļūdu(form[0])
+            }   
+
+             if(form[1].value.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/i)){
+                ievietotKļūdu(form[1],"Ievadiet pareizu e-pastu")
+                errorsInForm=true
+
+            }else{
+                 errorsInForm=false
+                 izņemtKļūdu(form[1])
+            }  
+            
+
+
+
+
+        }
+
+
+    </script>
+</body>
+</html>

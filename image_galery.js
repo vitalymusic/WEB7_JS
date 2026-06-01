@@ -1,5 +1,5 @@
 // 1. Img,button,div
-let image_count = 10;
+let image_count = 100;
 let imgEl = document.createElement('img');
 let button1 = document.createElement('button');
 let button2 = document.createElement('button');
@@ -14,7 +14,7 @@ dialogEl.append(dialogImage)
 let images = [];
 
 for(let i = 0;i<image_count;i++){
-    images.push(`https://picsum.photos/id/${Math.trunc(Math.random()*255)}/600`)
+    images.push(`https://picsum.photos/id/${Math.trunc(Math.random()*255)}/500`)
 }
 
 

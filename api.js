@@ -1,7 +1,8 @@
 function visiProdukti() {
     fetch('https://dummyjson.com/products')
         .then(res => res.json())
-        .then(dati => attēlotDatus(dati.products));
+        .then(dati => attēlotDatus(dati.products))
+        .then(()=>{pievienotKlikšķi()})
 
 }
 
@@ -19,16 +20,59 @@ function attēlotDatus(dati) {
                         
                     </div>
                     <div class="card-footer text-center">
-                        <a href="#" class="btn btn-primary">Skatīt produktu</a>
+                        <a href="#" class="btn btn-primary showProductBtn" data-id=${item.id}>Skatīt produktu</a>
                     </div>
                     </div>`
         })  
 }
 
 function ParādītProduktu(id){
+   fetch(`https://dummyjson.com/products/${id}`)
+        .then(res => res.json())
+        .then((produkts)=>{
+            // Salikt datus modālajā logā
+            document.querySelector('.modal-body').innerHTML = `
+            <h3>${produkts.title}</h3>
+            <p>${produkts.description}</p>
+            <div class="images d-flex">
+            </div>`
 
+          produkts.images.map((image,i)=>{
+                 document.querySelector('.images').innerHTML+=`
+                        <img src="${image}" class="img-thumbnail w-25 justify-content-center gap-3" alt="${produkts.name} ${i}">`            
+
+        })
+    })
+        .finally(()=>{
+            const modal = new bootstrap.Modal('.modal')
+            modal.show()
+        })
 }
 
 
 visiProdukti()
 
+function pievienotKlikšķi(){
+    let btns = document.querySelectorAll('.showProductBtn')
+for(btn of btns){
+    btn.addEventListener("click",(e)=>{
+        e.preventDefault()
+        ParādītProduktu(e.target.dataset.id)
+    })
+}
+
+
+}
+
+
+// Jāizvelk visas iespējamas kategorijas un no tām jāizveido navigācija
+
+// fetch('https://dummyjson.com/products/category-list')
+
+// Klikšķinot uz konkrētas kategorijas parādās tikai tie produkti, kas ir šajā kategorijā
+// fetch('https://dummyjson.com/products/category/smartphones')
+
+// pierakstīt trūkstošās funkcijas
+// Pielāgot dizainu un ja paliek laiks tad pevienot sakārtošanu pēc cenas
+
+// fetch('https://dummyjson.com/products?sortBy=price&order=asc')

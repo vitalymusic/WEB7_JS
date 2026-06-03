@@ -1,5 +1,5 @@
 function visiProdukti() {
-    fetch('https://dummyjson.com/products')
+    fetch('https://dummyjson.com/products?limit=0')
         .then(res => res.json())
         .then(dati => attēlotDatus(dati.products))
         .then(()=>{pievienotKlikšķi()})
@@ -34,12 +34,12 @@ function ParādītProduktu(id){
             document.querySelector('.modal-body').innerHTML = `
             <h3>${produkts.title}</h3>
             <p>${produkts.description}</p>
-            <div class="images d-flex">
+            <div class="images d-flex justify-content-center gap-3 px-3">
             </div>`
 
           produkts.images.map((image,i)=>{
                  document.querySelector('.images').innerHTML+=`
-                        <img src="${image}" class="img-thumbnail w-25 justify-content-center gap-3" alt="${produkts.name} ${i}">`            
+                        <img src="${image}" class="img-thumbnail w-25" alt="${produkts.name} ${i}">`            
 
         })
     })

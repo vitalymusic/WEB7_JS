@@ -16,7 +16,7 @@ function attēlotDatus(dati) {
                     <div class="card-body">
                         <h5 class="card-title">${item.title}</h5>
                         <p class="card-text">${item.description}</p>
-                        <p class="card-text">${item.price}</p>
+                        <p class="card-text text-center fw-bold">${item.price} &euro;</p>
                         
                     </div>
                     <div class="card-footer text-center">
@@ -34,7 +34,7 @@ function ParādītProduktu(id){
             document.querySelector('.modal-body').innerHTML = `
             <h3>${produkts.title}</h3>
             <p>${produkts.description}</p>
-            <div class="images d-flex justify-content-center gap-3 px-3">
+            <div class="images d-flex justify-content-center flex-wrap gap-3 px-3">
             </div>`
 
           produkts.images.map((image,i)=>{
@@ -49,7 +49,7 @@ function ParādītProduktu(id){
         })
 }
 
-
+iegūtNavigāciju()
 visiProdukti()
 
 function pievienotKlikšķi(){
@@ -62,6 +62,40 @@ for(btn of btns){
 }
 
 
+}
+
+function iegūtNavigāciju(){
+        const nav = document.querySelector('.nav');
+        fetch('https://dummyjson.com/products/category-list')
+        .then(res => res.json())
+        .then(data=>{
+            data.map((item)=>{
+                nav.innerHTML+=`
+                     <li class="nav-item">
+                        <a class="nav-link text-capitalize" href="#" data-category="${item}">${item}</a>
+                     </li>
+                `    
+            })
+        })
+        .finally(()=>{
+            const navLinks = document.querySelectorAll('.nav li a')
+
+            for(link of navLinks){
+                link.addEventListener("click",(e)=>{
+                    e.preventDefault()
+                    category = e.target.dataset.category
+                    if(category!==""){
+                        url = `https://dummyjson.com/products/category/${category}`
+                    }else{
+                        url = `https://dummyjson.com/products?limit=0`
+                    }
+                    fetch(url)
+                    .then(data=>data.json())
+                    .then(data=>{attēlotDatus(data.products)})
+                })
+            }
+
+        })
 }
 
 

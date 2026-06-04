@@ -9,6 +9,7 @@ function visiProdukti() {
 
 function attēlotDatus(dati) {
     const elements = document.querySelector('.products')
+    elements.innerHTML = "";
     dati.map((item) => {
         elements.innerHTML += `
                 <div class="card" style="width: 18rem;">
@@ -92,6 +93,7 @@ function iegūtNavigāciju(){
                     fetch(url)
                     .then(data=>data.json())
                     .then(data=>{attēlotDatus(data.products)})
+                    .then(()=>{pievienotKlikšķi()})
                 })
             }
 

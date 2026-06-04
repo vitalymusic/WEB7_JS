@@ -5,6 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JS Bibliotēkas</title>
+    <style>
+        .filmas{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap:20px
+        }
+    </style>
 
     <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
 
@@ -28,58 +36,63 @@
             // Pasūtījuma forma
             $('.step2,.step3').hide();
 
-            $('.step1 button').click((e)=>{
+            $('.step1 button').click((e) => {
                 e.preventDefault()
 
                 // lauku validācija
 
-            $('.step1').hide()
-            $('.step2').fadeIn()
+                $('.step1').hide()
+                $('.step2').fadeIn()
 
             })
 
-              $('.step2 button').click((e)=>{
+            $('.step2 button').click((e) => {
                 e.preventDefault()
 
                 // lauku validācija
 
-            $('.step2').hide()
-            $('.step3').fadeIn()
+                $('.step2').hide()
+                $('.step3').fadeIn()
 
             })
-            $('form').submit((e)=>{
+            $('form').submit((e) => {
                 e.preventDefault()
-                $.post('https://formsubmit.co/ajax/vitalijs.korabelnikovs@gmail.com',$('form').serialize()
-                ,(data)=>{
-                    console.log(data)
-                })
+                $.post('https://formsubmit.co/ajax/vitalijs.korabelnikovs@gmail.com', $('form').serialize()
+                    , (data) => {
+                        console.log(data)
+                    })
             })
 
 
 
             // atrast API ar bildēm, un ielādēt no tā bildes
 
-             "http://www.omdbapi.com/?i=tt3896198&apikey=9a094dac"
+            "http://www.omdbapi.com/?i=tt3896198&apikey=9a094dac"
 
             const moviesDB = "http://www.omdbapi.com/?t=terminator&apikey=9a094dac&"
             // const moviesDB2 = "http://img.omdbapi.com/?apikey=9a094dac&"
 
             // Pievienot Lightbox bibliotēku
-            $('#filmName').keyup((e)=>{
-                  $.get(`http://www.omdbapi.com/?t=${$('#filmName').val()}&apikey=9a094dac&`,(data)=>{
-                        console.log(data.Response)
-                        if(data.Response=="True"){
-                            $('.filmas').html(`
-                            <h3>${data.Title}</h3>
-                            <p>${data.Plot}</p>
-                            <img src="${data.Poster}">
+            $('#filmName').keyup((e) => {
+                $.get(`http://www.omdbapi.com/?s=${$('#filmName').val()}&apikey=9a094dac&`, (data) => {
+                      $('.filmas').empty()
+                    if (data.Response == "True") {
+                       data.Search.forEach((item) => {
+                            $('.filmas').append(`
+                            <div class="film">
+                                <h3>${item.Title}</h3>
+                                <p>${item.Year}</p>
+                                <img src="${item.Poster}">
+                            </div>
                         `)
-                        }else{
-                             $('.filmas').html("Filma nav atrasta")
-                        }
-                       
-                        
-                  })  
+                        })
+
+                    } else {
+                        $('.filmas').html("Filma nav atrasta")
+                    }
+
+
+                })
             })
 
 

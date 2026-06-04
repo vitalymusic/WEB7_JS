@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Bibliotēkas</title>
+
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+
+    <script>
+        $(document).ready(() => {
+            $('h1').css('color', 'red')
+            $('h1').css({
+                border: "2px solid red",
+                background: "#dfdfdf",
+                textAlign: "center"
+            })
+            $('h1').click((e) => {
+                alert("clicked" + e.target)
+            })
+
+            $('.imgButton').click(() => {
+                $('.container').html(`<img src="${$('#url').val()}">`)
+            })
+
+
+            // Pasūtījuma forma
+            $('.step2,.step3').hide();
+
+            $('.step1 button').click((e)=>{
+                e.preventDefault()
+
+                // lauku validācija
+
+            $('.step1').hide()
+            $('.step2').fadeIn()
+
+            })
+
+              $('.step2 button').click((e)=>{
+                e.preventDefault()
+
+                // lauku validācija
+
+            $('.step2').hide()
+            $('.step3').fadeIn()
+
+            })
+            $('form').submit((e)=>{
+                e.preventDefault()
+                $.post('https://formsubmit.co/ajax/vitalijs.korabelnikovs@gmail.com',$('form').serialize()
+                ,(data)=>{
+                    console.log(data)
+                })
+            })
+
+
+
+            // atrast API ar bildēm, un ielādēt no tā bildes
+
+             "http://www.omdbapi.com/?i=tt3896198&apikey=9a094dac"
+
+            const moviesDB = "http://www.omdbapi.com/?t=terminator&apikey=9a094dac&"
+            // const moviesDB2 = "http://img.omdbapi.com/?apikey=9a094dac&"
+
+            // Pievienot Lightbox bibliotēku
+            $('#filmName').keyup((e)=>{
+                  $.get(`http://www.omdbapi.com/?t=${$('#filmName').val()}&apikey=9a094dac&`,(data)=>{
+                        console.log(data.Response)
+                        if(data.Response=="True"){
+                            $('.filmas').html(`
+                            <h3>${data.Title}</h3>
+                            <p>${data.Plot}</p>
+                            <img src="${data.Poster}">
+                        `)
+                        }else{
+                             $('.filmas').html("Filma nav atrasta")
+                        }
+                       
+                        
+                  })  
+            })
+
+
+
+
+
+        })
+    </script>
+</head>
+
+<body>
+
+    <h1>Jquery</h1>
+    <h1>Jquery</h1>
+    <h1>Jquery</h1>
+
+    <input type="text" name="" id="url">
+    <button class="imgButton">Parādīt attēlu</button>
+    <div class="container"></div>
+
+    <h2>Filmu meklētājs</h2>
+    <input type="text" name="filmName" id="filmName" placeholder="Filmas nosaukums">
+    <div class="filmas"></div>
+
+
+    <div class="pirkums">
+        <form action="" method="POST">
+            <div class="step1">
+                <!-- 1. solis -->
+                <input type="text" name="vards" id="">
+                <input type="email" name="epasts" id="">
+                <input type="text" name="talrunis" id="">
+
+                <button>Tālāk</button>
+            </div>
+            <div class="step2">
+                <!-- 2. solis -->
+                <select name="" id="">
+                    <option value="">Izvēlēties pilsētu</option>
+                </select>
+                <input type="text" name="adrese" id="">
+                <button>Tālāk</button>
+            </div>
+            <div class="step3">
+                <!-- 3. kopsavilkums -->
+                <table>
+                </table>
+                <input type="submit" value="Noformēt pirkumu">
+            </div>
+        </form>
+
+    </div>
+</body>
+
+</html>
